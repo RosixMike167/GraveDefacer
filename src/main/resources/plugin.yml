@@ -1,0 +1,8 @@
+name: GraveDefacer
+version: 1.0.0
+main: it.ziopagnotta.gravedefacer.GraveDefacer
+api-version: 1.20
+author: Zio_Pagnotta
+
+commands:
+  grave:

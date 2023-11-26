@@ -1,0 +1,71 @@
+settings:
+  should-drop-instead-open-inv: false
+  random-action-instead-fixed: false
+  create-explosion-on-deface: true
+  explosion-power: 1
+  should-explosion-break-blocks: false
+  should-explosion-set-fire-around: false
+  send-global-chat-message-on-deface: true
+  send-global-chat-message-on-deface-own-grave: false
+  allow-display-sub-title: true
+  allow-player-deface-own-grave: true
+  enable-player-graves-limit: true
+  player-graves-limit: 3
+  graves-expire-time-seconds: 120 #-1 cannot expire until server close
+  disabled-worlds:
+    - world
+
+lang:
+  prefix: '&b&lGraveDefacer &r'
+  chat-message: '&6&o%player% defaced &e&o%victim%&6&o''s grave!'
+  own-chat-message: '&6&o%player% defaced his grave!'
+  inventory-title: '&7%player%''s grave'
+  display-title: '&6%player%''s grave'
+  display-sub-title: '&7&oright-click to deface'
+  no-permission: '&cYou do not have the permission'
+  list-gui-empty-message: '&cNo active graves found'
+  search-no-found-message: '&cUser %player% was not found'
+  teleport-message: '&aYou got teleported to the &6%player% &a''s grave'
+  delete-message: '&aSuccessfully deleted &6%player% &a''s grave'
+  config-reload-message: '&aConfig was successfully reloaded'
+  remove-all-message: '&aSuccessfully removed all active graves'
+  player-reached-grave-number: '&6Your grave has not been created, you have %number%/%limit% active graves'
+
+gui:
+  main:
+    gui-title: 'Grave Main Menu'
+    list-button-title: '&bGrave list'
+    list-button-desc: '&7&oClick to view all active graves'
+    own-list-button-title: '&bYour graves'
+    own-list-button-desc: '&7&oClick to view your active graves'
+    reload-button-title: '&bReload config'
+    reload-button-desc: '&7&oClick to reload the config file'
+
+  list:
+    gui-title: 'Admin Menu - page: %page%'
+    close-gui-button: '&cReturn to main menu'
+    grave-button-title: '&b%player%''s grave'
+    grave-button-desc: "&7&oDied: %date%&7\n&oClick to open editor menu"
+    grave-button-desc-noperm: "&7&oDied: %date%&7"
+    next-page-title: '&6Next page: %page%'
+    next-page-desc: '&7&oClick to show the next page'
+    prev-page-title: '&6Previous page: %page%'
+    prev-page-desc: '&7&oClick to show the previous page'
+    open-search-gui-button-title: '&6Search graves by player name'
+    open-search-gui-button-desc: '&7&oClick to open the search menu'
+    remove-all-button-title: '&6Remove all graves'
+    remove-all-button-desc: '&7&oClick to remove all active graves'
+
+  search:
+    gui-title: 'Search menu'
+    left-button-title: '&6Type player''s name'
+
+  player:
+    gui-title: '%player%''s graves - page: %page%'
+
+  editor:
+    gui-title: '%player%''s graves - editor'
+    teleport-button-title: '&6Teleport'
+    teleport-button-desc: '&7&oClick to teleport to the player''s grave'
+    delete-button-title: '&6Delete'
+    delete-button-desc: '&7&oClick to delete to the player''s grave'
