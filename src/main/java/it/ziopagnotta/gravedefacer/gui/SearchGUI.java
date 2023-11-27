@@ -3,9 +3,6 @@ package it.ziopagnotta.gravedefacer.gui;
 import eu.macsworks.libs.anvilgui.AnvilGUI;
 import eu.macsworks.premium.macslibs.utils.ColorTranslator;
 import eu.macsworks.premium.macslibs.utils.ItemBuilder;
-import static it.ziopagnotta.gravedefacer.GraveDefacer.pluginConfig;
-import static it.ziopagnotta.gravedefacer.config.Utils.sendConfigMessage;
-
 import it.ziopagnotta.gravedefacer.GraveDefacer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,6 +12,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collections;
+
+import static it.ziopagnotta.gravedefacer.GraveDefacer.pluginConfig;
+import static it.ziopagnotta.gravedefacer.config.Utils.sendConfigMessage;
 
 public class SearchGUI {
     public static void openInventory(Player player) {

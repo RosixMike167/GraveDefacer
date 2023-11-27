@@ -1,12 +1,14 @@
 package it.ziopagnotta.gravedefacer.listeners;
 
 import it.ziopagnotta.gravedefacer.GraveDefacer;
-import it.ziopagnotta.gravedefacer.config.Utils;
 import it.ziopagnotta.gravedefacer.config.PluginConfig;
+import it.ziopagnotta.gravedefacer.config.Utils;
+import it.ziopagnotta.gravedefacer.gui.EditorGUI;
 import it.ziopagnotta.gravedefacer.objects.Grave;
 import it.ziopagnotta.gravedefacer.objects.GraveFactory;
 import it.ziopagnotta.gravedefacer.objects.Items;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
@@ -28,18 +30,25 @@ public class InteractEvent implements Listener {
 
         Player player = event.getPlayer();
 
-        if(Utils.isBlockedWorld(player.getWorld().getName()))
+        if(player.getGameMode() == GameMode.SPECTATOR)
             return;
-
-        event.setCancelled(true);
 
         GraveFactory graveFactory = GraveDefacer.graveFactory;
         Optional<Grave> optionalGrave = graveFactory.getGraveByEntity(entity);
 
-        if(optionalGrave.isEmpty())
+        if(Utils.isBlockedWorld(player.getWorld().getName()) || optionalGrave.isEmpty())
             return;
 
+        event.setCancelled(true);
+
         Grave grave = optionalGrave.get();
+
+
+        if(player.isSneaking() && player.hasPermission("gravedefacer.admin")) {
+            player.openInventory(EditorGUI.getInventory(grave, player));
+            return;
+        }
+
         PluginConfig config = GraveDefacer.pluginConfig;
         boolean isSamePlayer = player.getName().equals(grave.getOwner());
 

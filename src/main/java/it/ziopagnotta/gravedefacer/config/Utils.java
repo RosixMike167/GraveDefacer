@@ -6,8 +6,6 @@ import it.ziopagnotta.gravedefacer.objects.Grave;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -46,8 +44,20 @@ public class Utils {
     }
 
     @Contract(pure = true)
-    private static @NotNull String formatTime(int time) {
+    @NotNull
+    private static String formatTime(int time) {
         return time < 10 ? "0" + time : String.valueOf(time);
+    }
+
+    @NotNull
+    public static String getRemainingTime(@NotNull Grave grave) {
+        int settingTime = GraveDefacer.pluginConfig.getInt("settings.graves-expire-time-seconds");
+        Instant start = Instant.now();
+        Instant end = grave.getInstant().plusSeconds(settingTime);
+
+        long diff = Duration.between(start, end).toSeconds();
+
+        return String.valueOf(diff);
     }
 
     public static void switchInv(@NotNull Player player, Inventory nextInv) {
@@ -70,7 +80,8 @@ public class Utils {
     }
 
     public static void sendConfigMessage(@NotNull Player player, @NotNull String path) {
-        player.sendMessage(fromLegacy(GraveDefacer.pluginConfig.getString("lang.prefix")).append(fromLegacy(path)));
+        player.sendMessage(fromLegacy(GraveDefacer.pluginConfig.getString("lang.prefix"))
+                .append(fromLegacy(path)).replaceText(builder -> builder.match("\n").replacement(Component.newline())));
     }
 
     public static void loadBlockedWorlds() {
@@ -106,11 +117,11 @@ public class Utils {
         return GraveDefacer.graveFactory.getNumberGravesByOwner(player) < GraveDefacer.pluginConfig.getInt("settings.player-graves-limit");
     }
 
-    public static boolean canExpire() {
+    public static boolean cannotExpire() {
         return GraveDefacer.pluginConfig.getInt("settings.graves-expire-time-seconds") == -1;
     }
 
     public static boolean hasExpired(@NotNull Grave grave) {
-        return Math.abs(Duration.between(Instant.now(), grave.getInstant()).toSeconds()) > GraveDefacer.pluginConfig.getInt("settings.graves-expire-time-seconds");
+        return Math.abs(Duration.between(Instant.now(), grave.getInstant()).toSeconds()) >= GraveDefacer.pluginConfig.getInt("settings.graves-expire-time-seconds");
     }
 }

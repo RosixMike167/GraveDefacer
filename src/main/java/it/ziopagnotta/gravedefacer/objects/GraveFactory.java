@@ -1,9 +1,11 @@
 package it.ziopagnotta.gravedefacer.objects;
 
+import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -32,8 +34,23 @@ public class GraveFactory {
                 .findAny();
     }
 
-    public List<Grave> getGravesByOwner(String owner) {
+    public List<Grave> getGravesByOwner(@NotNull String owner) {
         return gravesCache.stream().filter(grave -> grave.getOwner().equals(owner)).collect(Collectors.toList());
+    }
+
+    public Optional<Grave> getNearestGrave(@NotNull Location location) {
+        Grave nearest = null;
+
+        for(Grave grave : getGravesCache()) {
+            if(nearest == null)
+                nearest = grave;
+
+            if(grave.getOrigin().distanceSquared(location) < nearest.getOrigin().distanceSquared(location)) {
+                nearest = grave;
+            }
+        }
+
+        return Optional.ofNullable(nearest);
     }
 
     public int getNumberGravesByOwner(String owner) {

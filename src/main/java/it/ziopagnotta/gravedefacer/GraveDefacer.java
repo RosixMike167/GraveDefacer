@@ -7,7 +7,6 @@ import it.ziopagnotta.gravedefacer.config.Utils;
 import it.ziopagnotta.gravedefacer.gui.MainGUI;
 import it.ziopagnotta.gravedefacer.listeners.DeathEvent;
 import it.ziopagnotta.gravedefacer.listeners.InteractEvent;
-import it.ziopagnotta.gravedefacer.objects.Grave;
 import it.ziopagnotta.gravedefacer.objects.GraveFactory;
 import it.ziopagnotta.gravedefacer.worker.ExpireWorker;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -50,6 +49,9 @@ public class GraveDefacer extends JavaPlugin {
     }
 
     public void checkWorker() {
+        if(Utils.cannotExpire())
+            return;
+
         if(expireWorker != null)
             return;
 

@@ -4,10 +4,6 @@ import com.google.common.collect.Lists;
 import eu.macsworks.premium.macslibs.utils.ColorTranslator;
 import eu.macsworks.premium.macslibs.utils.InventoryBuilder;
 import eu.macsworks.premium.macslibs.utils.ItemBuilder;
-import static it.ziopagnotta.gravedefacer.GraveDefacer.pluginConfig;
-import static it.ziopagnotta.gravedefacer.GraveDefacer.graveFactory;
-import static it.ziopagnotta.gravedefacer.config.Utils.*;
-
 import it.ziopagnotta.gravedefacer.objects.Grave;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -16,6 +12,10 @@ import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+
+import static it.ziopagnotta.gravedefacer.GraveDefacer.graveFactory;
+import static it.ziopagnotta.gravedefacer.GraveDefacer.pluginConfig;
+import static it.ziopagnotta.gravedefacer.config.Utils.*;
 
 public class GraveListGUI {
     public static @Nullable Inventory getInventoryOf(@Nullable Player target, boolean admin, int page) {

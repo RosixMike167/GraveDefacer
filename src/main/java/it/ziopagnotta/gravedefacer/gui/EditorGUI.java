@@ -4,9 +4,7 @@ package it.ziopagnotta.gravedefacer.gui;
 import eu.macsworks.premium.macslibs.utils.ColorTranslator;
 import eu.macsworks.premium.macslibs.utils.InventoryBuilder;
 import eu.macsworks.premium.macslibs.utils.ItemBuilder;
-import static it.ziopagnotta.gravedefacer.GraveDefacer.pluginConfig;
-import static it.ziopagnotta.gravedefacer.GraveDefacer.graveFactory;
-
+import it.ziopagnotta.gravedefacer.config.Utils;
 import it.ziopagnotta.gravedefacer.objects.Grave;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -14,8 +12,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
-import static it.ziopagnotta.gravedefacer.config.Utils.*;
+
 import java.util.logging.Level;
+
+import static it.ziopagnotta.gravedefacer.GraveDefacer.graveFactory;
+import static it.ziopagnotta.gravedefacer.GraveDefacer.pluginConfig;
+import static it.ziopagnotta.gravedefacer.config.Utils.*;
 
 public class EditorGUI {
     @NotNull
@@ -25,6 +27,15 @@ public class EditorGUI {
         return new InventoryBuilder()
                 .named(ColorTranslator.translate(pluginConfig.getString("gui.editor.gui-title").replace("%player%", name)))
                 .slots(27)
+                .addItem(4, new ItemBuilder()
+                        .skullOf(grave.getOwner())
+                        .name(ColorTranslator.translate(pluginConfig.getString("gui.editor.grave-info-title")).replace("%player%", grave.getOwner()))
+                        .lore(ColorTranslator.translate(pluginConfig.getString("gui.editor.grave-info-desc"))
+                                .replace("%date%", Utils.formatInstant(grave.getInstant()))
+                                .replace("%world%", grave.getOrigin().getWorld().getName())
+                                .replace("%remtime%", Utils.getRemainingTime(grave)))
+                        .makeStatic()
+                        .build())
                 .addItem(18, new ItemBuilder()
                         .name(ColorTranslator.translate(pluginConfig.getString("gui.list.close-gui-button")))
                         .material(Material.BARRIER)
